@@ -1,4 +1,7 @@
 const connectToDatabase = require("../models/db");
+const express = require('express');
+const router=express.Router();
+const logger=require('../logger');
 
 router.get('/', async (req, res) => {
     try {
@@ -14,8 +17,8 @@ router.get('/', async (req, res) => {
         // Task 4: return the gifts using the res.json method
         res.json(gifts);
     } catch (e) {
-        console.error('Error fetching gifts:', e);
-        res.status(500).send('Error fetching gifts');
+        logger.console.error('oops something went wrong', e)
+        next(e);
     }
 });
 
@@ -31,15 +34,14 @@ router.get('/:id', async (req, res) => {
 
         // Task 3: Find a specific gift by ID using the collection.fineOne method and store in constant called gift
         // {{insert code here}}
-        const gift=await collection.findOne({id: new Object(id)})
+        const gift=await collection.findOne({id: id})
         if (!gift) {
             return res.status(404).send('Gift not found');
         }
 
         res.json(gift);
     } catch (e) {
-        console.error('Error fetching gift:', e);
-        res.status(500).send('Error fetching gift');
+        next(e);
     }
 });
 
