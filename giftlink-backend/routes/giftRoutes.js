@@ -3,7 +3,8 @@ const express = require('express');
 const router=express.Router();
 const logger=require('../logger');
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
+    logger.info('GET /gifts');
     try {
         // Task 1: Connect to MongoDB and store connection to db constant
         // const db = {{insert code here}}
@@ -22,7 +23,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
     try {
         // Task 1: Connect to MongoDB and store connection to db constant
         // const db = {{insert code here}}

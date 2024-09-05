@@ -14,7 +14,7 @@ function MainPage() {
                 let url=`${urlConfig.backendUrl}/api/gifts`;
                 const response = await fetch(url);
                 if(!response.ok){
-                    throw new Error('HTTP error; ${response.status}');
+                    throw new Error(`HTTP error; ${response.status}`);
                 }
                 const data = await response.json();
                 setGifts(data);
@@ -29,7 +29,7 @@ function MainPage() {
     // Task 2: Navigate to details page
     const goToDetailsPage = (productId) => {
         // Write your code below this line
-        navigate('/app/product/${productId}');
+        navigate(`/app/product/${productId}`);
       };
 
     // Task 3: Format timestamp
