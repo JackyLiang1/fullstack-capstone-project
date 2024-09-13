@@ -74,23 +74,31 @@ router.post('/login',async (req, res) => {
     }
 });
 
-router.post('/update', (req, res) => {
+router.post('/update', async(req, res) => {
     const errors= validationResult(req);    
     if(!errors.isEmpty()){
         logger.error('Validation errors in update request', errors.array());
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const email=req.headers.email;
-    if(!email){
-        logger.error('Email not found in the request headers');
-        return res.status(400).json({ error: 'Email not found in the request headers' });
-    }
+
 
     try{
+        const email=req.headers.email;
+        if(!email){
+            logger.error('Email not found in the request headers');
+            return res.status(400).json({ error: 'Email not found in the request headers' });
+        }
         const db=await connectToDatabase();
         const collection=db.collection('users');
         const existingUser = await collection.findOne({ email: email });
+        if (!existingUser) {
+            logger.error('User not found');
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        existingUser.firstName = req.body.name;
+        existingUser.updatedAt = new Date();
         const updatedUser = await collection.findOneAndUpdate({ email }, { $set: existingUser },{ ReturnDocument: 'after'});
 
         const payload={
