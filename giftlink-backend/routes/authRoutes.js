@@ -12,7 +12,7 @@ const { ReturnDocument } = require('mongodb');
 
 
 dotenv.config();     
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = 'default_secret_key';
 router.post('/register',async (req, res) => {
     try {
         const db=await connectToDatabase();
@@ -61,7 +61,7 @@ router.post('/login',async (req, res) => {
                     id: theUser._id.toString(),
                 },
             };
-            const authtoken=jwt.sign(user._id,JWT_SECRET);
+            const authtoken=jwt.sign(payload,JWT_SECRET);
             logger.info('User logged in successfully');
             return res.status(200).json({ authtoken, userName, userEmail });
         }else{

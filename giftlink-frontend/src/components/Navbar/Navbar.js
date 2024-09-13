@@ -4,7 +4,7 @@ import {urlConfig} from '../../config';
 import {useAppContext} from '../../context/AuthContext';
 
 export default function Navbar() {
-    const {isLoggedIn,setIsloggedIn, userName, setUserName} = useAppContext();
+    const {isLoggedIn,setIsLoggedIn, userName, setUserName} = useAppContext();
      
     const navigate = useNavigate();
 
@@ -18,16 +18,16 @@ export default function Navbar() {
                 sessionStorage.removeItem('auth-token');
                 sessionStorage.removeItem('name');
                 sessionStorage.removeItem('email');
-                setIsloggedIn(false);
+                setIsLoggedIn(false);
             }
         }
-    },[isLoggedIn,setIsloggedIn,setUserName])
+    },[isLoggedIn,setIsLoggedIn,setUserName])
 
     const handleLogout = () => {
         sessionStorage.removeItem('auth-token');
         sessionStorage.removeItem('name');
         sessionStorage.removeItem('email');
-        setIsloggedIn(false);
+        setIsLoggedIn(false);
         navigate('/app');
     }
     const profileSection = () => {
