@@ -18,7 +18,7 @@ function LoginPage() {
         if (bearerToken) {
             navigate('/app');
         }
-    },[navigate]);
+    },[bearerToken, navigate]);
 
 
     const handleLogin = async(e) => {
