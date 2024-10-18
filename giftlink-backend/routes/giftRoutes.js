@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
         // Task 4: return the gifts using the res.json method
         res.json(gifts);
     } catch (e) {
-        logger.console.error('oops something went wrong', e)
+        logger.console.error('oops something went wrong', e);
         next(e);
     }
 });
@@ -30,12 +30,12 @@ router.get('/:id', async (req, res, next) => {
         const db=await connectToDatabase();
         // Task 2: use the collection() method to retrieve the gift collection
         // {{insert code here}}
-        const collection=db.collection("gifts")
+        const collection=db.collection("gifts");
         const id = req.params.id;
 
         // Task 3: Find a specific gift by ID using the collection.fineOne method and store in constant called gift
         // {{insert code here}}
-        const gift=await collection.findOne({id: id})
+        const gift=await collection.findOne({id: id});
         if (!gift) {
             return res.status(404).send('Gift not found');
         }
